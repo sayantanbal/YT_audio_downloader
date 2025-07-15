@@ -1,6 +1,5 @@
 # Gunicorn configuration file
 import multiprocessing
-import os
 
 # Server socket
 bind = "0.0.0.0:5001"

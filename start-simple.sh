@@ -1,5 +1,5 @@
 #!/bin/bash
-# Production startup script
+# Simple production startup script - no log files
 
 echo "🚀 Starting YouTube Audio Downloader (Production Mode)"
 
@@ -9,23 +9,14 @@ if [ -d "backend/venv" ]; then
     source backend/venv/bin/activate
 fi
 
-# Create log directories
-sudo mkdir -p /var/log/gunicorn 2>/dev/null || mkdir -p logs
-sudo chown $USER:$USER /var/log/gunicorn 2>/dev/null || true
-
 # Set environment variables
 export FLASK_ENV=production
 export FLASK_DEBUG=False
 
-# Start backend with Gunicorn
+# Start backend with Gunicorn (logs to console)
 echo "Starting backend with Gunicorn..."
 cd backend
-
-# Create logs directory
-mkdir -p logs
-
-# Start Gunicorn with proper log paths
-gunicorn --bind 0.0.0.0:5001 --workers 4 --timeout 120 --access-logfile logs/access.log --error-logfile logs/error.log wsgi:app &
+gunicorn --bind 0.0.0.0:5001 --workers 4 --timeout 120 wsgi:app &
 BACKEND_PID=$!
 
 # Start frontend
@@ -36,8 +27,8 @@ FRONTEND_PID=$!
 
 echo ""
 echo "✅ Services started!"
-echo "🌐 Frontend: http://localhost:3000"
-echo "🔧 Backend API: http://localhost:5001"
+echo "🌐 Frontend: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4):3000"
+echo "🔧 Backend API: http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4):5001"
 echo ""
 echo "Backend PID: $BACKEND_PID"
 echo "Frontend PID: $FRONTEND_PID"

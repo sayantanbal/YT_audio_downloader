@@ -1,6 +1,21 @@
 // API service for YouTube Audio Downloader Backend
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Automatically detect the correct API URL based on current host
+const getApiBaseUrl = () => {
+  const hostname = window.location.hostname;
+  
+  // If running on localhost, use localhost backend
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return 'http://localhost:5001/api';
+  }
+  
+  // If running on EC2 or production, use the same host with port 5001
+  return `http://${hostname}:5001/api`;
+};
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || getApiBaseUrl();
+
+console.log('API Base URL:', API_BASE_URL); // For debugging
 
 class YouTubeAPIService {
   constructor() {
