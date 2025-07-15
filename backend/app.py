@@ -418,5 +418,10 @@ if __name__ == "__main__":
     # Ensure temp directory exists
     os.makedirs("temp", exist_ok=True)
 
-    # Run development server
-    app.run(debug=True, host="0.0.0.0", port=5001)
+    # Check if running in production
+    if os.environ.get("FLASK_ENV") == "production":
+        # Production: Let Gunicorn handle this
+        app.run(debug=False, host="0.0.0.0", port=5001)
+    else:
+        # Development server
+        app.run(debug=True, host="0.0.0.0", port=5001)
