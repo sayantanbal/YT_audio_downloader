@@ -1,6 +1,6 @@
 # 🎵 YouTube Audio Downloader
 
-A modern, responsive Single Page Application (SPA) built with React and Vite for downloading audio from YouTube videos. This application provides a clean, intuitive interface for extracting audio content from YouTube videos.
+A modern, responsive web application for downloading audio from YouTube videos. This application consists of a React frontend and Flask backend, designed for deployment on separate EC2 instances.
 
 ![YouTube Audio Downloader](https://via.placeholder.com/800x400/667eea/ffffff?text=YouTube+Audio+Downloader)
 
@@ -21,32 +21,32 @@ A modern, responsive Single Page Application (SPA) built with React and Vite for
 - `https://www.youtube.com/embed/VIDEO_ID`
 - `https://www.youtube.com/shorts/VIDEO_ID`
 
+## � Project Structure
+
+```
+├── frontend/          # React frontend application
+├── backend/           # Flask backend API
+├── deployment/        # Deployment scripts and configurations
+└── README.md         # This file
+```
+
 ## 🚀 Getting Started
 
-### Prerequisites
+### Frontend (React + Vite)
 
-- Node.js (version 16 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd YT_audio_downloader
-```
-
-2. Install dependencies:
-```bash
+cd frontend
 npm install
-```
-
-3. Start the development server:
-```bash
 npm run dev
 ```
 
-4. Open your browser and visit `http://localhost:5173`
+### Backend (Flask + Python)
+
+```bash
+cd backend
+pip install -r requirements.txt
+python app.py
+```
 
 ### Building for Production
 
